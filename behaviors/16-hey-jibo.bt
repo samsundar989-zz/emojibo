@@ -1,0 +1,539 @@
+{
+    "1": {
+        "id": 1,
+        "class": "Sequence",
+        "name": "",
+        "children": [
+            2,
+            4,
+            5,
+            8
+        ],
+        "options": {}
+    },
+    "2": {
+        "id": 2,
+        "class": "Subtree",
+        "name": "Idle",
+        "asset-pack": "core",
+        "parent": 1,
+        "decorators": [
+            7
+        ],
+        "options": {
+            "behaviorPath": "08-idle.bt",
+            "getNotepad": [
+                "() => {",
+                "    return {};",
+                "}"
+            ],
+            "onResult": [
+                "(treeResult) => {",
+                "}"
+            ]
+        }
+    },
+    "4": {
+        "id": 4,
+        "class": "CenterRobot",
+        "name": "",
+        "asset-pack": "project",
+        "parent": 1,
+        "options": {
+            "isGlobal": true
+        }
+    },
+    "5": {
+        "id": 5,
+        "class": "PlayAnimation",
+        "name": "Do an excited dance",
+        "asset-pack": "core",
+        "parent": 1,
+        "options": {
+            "animPath": "excited.keys",
+            "config": [
+                "(animation) => {",
+                "}"
+            ]
+        }
+    },
+    "7": {
+        "id": 7,
+        "class": "SucceedOnEmbedded",
+        "name": "",
+        "asset-pack": "core",
+        "options": {
+            "rule": "hey_jibo",
+            "onResult": [
+                "(listener) => {",
+                "    listener.on('hey-jibo', (asrResult, speakerIds) => {",
+                "",
+                "    });",
+                "}"
+            ]
+        }
+    },
+    "8": {
+        "id": 8,
+        "class": "Sequence",
+        "name": "",
+        "asset-pack": "core",
+        "children": [
+            "964f3be4-6506-4d6b-a8fc-b2b912783e39",
+            "7ed85866-c10d-4fc9-ad10-ddf5fdd0ab98"
+        ],
+        "parent": 1,
+        "decorators": [],
+        "options": {}
+    },
+    "964f3be4-6506-4d6b-a8fc-b2b912783e39": {
+        "id": "964f3be4-6506-4d6b-a8fc-b2b912783e39",
+        "class": "ExecuteScript",
+        "name": "Set up global parameters",
+        "options": {
+            "exec": [
+                "() => {",
+                "  //Guess my number skill for Jibo.",
+                "  //overall min and max range for guessing numbers",
+                "  notepad.give_directions=true;",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 8
+    },
+    "meta": {
+        "version": 1
+    },
+    "7ed85866-c10d-4fc9-ad10-ddf5fdd0ab98": {
+        "id": "7ed85866-c10d-4fc9-ad10-ddf5fdd0ab98",
+        "class": "Sequence",
+        "name": "Main game",
+        "options": {},
+        "asset-pack": "core",
+        "parent": 8,
+        "decorators": [
+            "cba40083-556f-498a-b253-2dd246f28a76"
+        ],
+        "children": [
+            "1916f96d-cee8-4923-9740-90651b397b92"
+        ]
+    },
+    "cba40083-556f-498a-b253-2dd246f28a76": {
+        "id": "cba40083-556f-498a-b253-2dd246f28a76",
+        "class": "WhileCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "  notepad.play=true;",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "    return notepad.play;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "1916f96d-cee8-4923-9740-90651b397b92": {
+        "id": "1916f96d-cee8-4923-9740-90651b397b92",
+        "class": "Sequence",
+        "name": "Play the game",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "7ed85866-c10d-4fc9-ad10-ddf5fdd0ab98",
+        "children": [
+            "05c0b8e0-8239-486d-a697-0b0138b46b17",
+            "d8eb0020-6e26-4d92-bff5-e156f282fcb6",
+            "7126f077-b280-4ff5-8ef0-ac9e823bb91e"
+        ]
+    },
+    "05c0b8e0-8239-486d-a697-0b0138b46b17": {
+        "id": "05c0b8e0-8239-486d-a697-0b0138b46b17",
+        "class": "ExecuteScript",
+        "name": "Set the equation to be solved",
+        "options": {
+            "exec": [
+                "() => {",
+                "  /*function readTextFile(file, array)",
+                "{",
+                "    var rawFile = new XMLHttpRequest();",
+                "    rawFile.open(\"GET\", file, false);",
+                "    rawFile.onreadystatechange = function ()",
+                "    {",
+                "        if(rawFile.readyState === 4)",
+                "        {",
+                "            if(rawFile.status === 200 || rawFile.status == 0)",
+                "            {",
+                "                var allText = rawFile.responseText;",
+                "                array = allText.split(\"\\n\");",
+                "              ",
+                "            }",
+                "        }",
+                "    }",
+                "    rawFile.send(null);",
+                "}",
+                "(readTextFile(\"./questions.txt\", array));",
+                "console.log(array);*/",
+                "  notepad.equation=\"5+7\";",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "1916f96d-cee8-4923-9740-90651b397b92"
+    },
+    "d8eb0020-6e26-4d92-bff5-e156f282fcb6": {
+        "id": "d8eb0020-6e26-4d92-bff5-e156f282fcb6",
+        "class": "TextToSpeechJs",
+        "name": "Is the player ready?",
+        "options": {
+            "getWords": [
+                "(callback) => {",
+                "  let starting_msg=\"Hello again!\";",
+                "  if (notepad.give_directions)",
+                "  {",
+                "    starting_msg=\"We ready to playy!!\";",
+                "    console.log(\"Playing!\");",
+                "    notepad.give_directions=false;",
+                "  }",
+                "  ",
+                "    callback(starting_msg);",
+                "}"
+            ],
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "1916f96d-cee8-4923-9740-90651b397b92"
+    },
+    "7126f077-b280-4ff5-8ef0-ac9e823bb91e": {
+        "id": "7126f077-b280-4ff5-8ef0-ac9e823bb91e",
+        "class": "Sequence",
+        "name": "Guessing loop",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "1916f96d-cee8-4923-9740-90651b397b92",
+        "decorators": [
+            "dd62bb8d-b4ee-4bdf-b614-f33f0db729a4"
+        ],
+        "children": [
+            "f551f397-b993-4428-bffa-1dc056746f51",
+            "7028d1e7-af03-4ae2-a114-eb03613ce15a",
+            "6aa3fd4f-5bb0-4ba3-b954-a66c4d4bf93d",
+            "e57c324d-da1e-482c-a96f-5c97f7789b5b",
+            "dbc8b96c-fa4e-49ea-84f8-296aa0134820",
+            "3c850b47-0d00-4932-a81d-9835d59d2871",
+            "d4640f93-3786-473c-94e9-f3023f5c097a"
+        ]
+    },
+    "dd62bb8d-b4ee-4bdf-b614-f33f0db729a4": {
+        "id": "dd62bb8d-b4ee-4bdf-b614-f33f0db729a4",
+        "class": "WhileCondition",
+        "options": {
+            "init": [
+                "() => {",
+                "   notepad.game_over=false;",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "   return !notepad.game_over;",
+                "  ",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "f551f397-b993-4428-bffa-1dc056746f51": {
+        "id": "f551f397-b993-4428-bffa-1dc056746f51",
+        "class": "TextToSpeechJs",
+        "name": "",
+        "options": {
+            "getWords": [
+                "(callback) => {",
+                "     //callback(\"Good job!\");",
+                "    callback('What is ' + notepad.equation + '?');",
+                "}"
+            ],
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "7126f077-b280-4ff5-8ef0-ac9e823bb91e"
+    },
+    "6aa3fd4f-5bb0-4ba3-b954-a66c4d4bf93d": {
+        "id": "6aa3fd4f-5bb0-4ba3-b954-a66c4d4bf93d",
+        "class": "Listen",
+        "name": "",
+        "options": {
+            "getOptions": [
+                "() => {",
+                "    let options = {",
+                "        heyJibo: false,",
+                "        detectEnd: true,",
+                "        incremental: false,",
+                "        authenticateSpeaker: ''",
+                "    }",
+                "    return options;",
+                "}"
+            ],
+            "rule": "integer.rule",
+            "onResult": [
+                "(listener) => {",
+                "    listener.on('cloud', function(asrResult, speakerIds) {",
+                "      console.log(asrResult.NLParse)",
+                "       if (asrResult.Input) {",
+                "         notepad.result = asrResult.Input;",
+                "       } else{",
+                "         notepad.result = 'not a Number';",
+                "       }",
+                "       console.log('listener result: ',notepad.result);",
+                "      // console.log('i parsed: ', asrResult.Input);",
+                "       //var wolf = \"twelve\";",
+                "       //console.log(wolf==asrResult.Input)",
+                "       //notepad.play = (asrResult.Input==wolf)?true:false;",
+                "       ",
+                "       ",
+                "    });",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "7126f077-b280-4ff5-8ef0-ac9e823bb91e"
+    },
+    "7028d1e7-af03-4ae2-a114-eb03613ce15a": {
+        "id": "7028d1e7-af03-4ae2-a114-eb03613ce15a",
+        "class": "TimeoutJs",
+        "name": "",
+        "options": {
+            "getTime": [
+                "() => {",
+                "    return 3000;",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "7126f077-b280-4ff5-8ef0-ac9e823bb91e"
+    },
+    "dbc8b96c-fa4e-49ea-84f8-296aa0134820": {
+        "id": "dbc8b96c-fa4e-49ea-84f8-296aa0134820",
+        "class": "ExecuteScript",
+        "name": "",
+        "options": {
+            "exec": [
+                "() => {",
+                "  console.log('Wrong answer');",
+                "  notepad.play=true;  ",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "7126f077-b280-4ff5-8ef0-ac9e823bb91e",
+        "decorators": [
+            "60eee6b3-295c-49f0-a560-d75689ebc3c7"
+        ]
+    },
+    "3c850b47-0d00-4932-a81d-9835d59d2871": {
+        "id": "3c850b47-0d00-4932-a81d-9835d59d2871",
+        "class": "TextToSpeech",
+        "name": "Wanna go again?",
+        "options": {
+            "words": "Wrong Answer! Want to try again?",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "7126f077-b280-4ff5-8ef0-ac9e823bb91e"
+    },
+    "d4640f93-3786-473c-94e9-f3023f5c097a": {
+        "id": "d4640f93-3786-473c-94e9-f3023f5c097a",
+        "class": "ListenJs",
+        "name": "",
+        "options": {
+            "getOptions": [
+                "() => {",
+                "    let options = {",
+                "        heyJibo: false,",
+                "        detectEnd: true,",
+                "        incremental: false,",
+                "        authenticateSpeaker: ''",
+                "    }",
+                "    return options;",
+                "}"
+            ],
+            "getRule": [
+                "(callback) => {",
+                "    callback(\"TopRule = $* $factory:yes_no {result=yes_no._nl} $*;\");",
+                "}"
+            ],
+            "onResult": [
+                "(listener) => {",
+                "    listener.on('cloud', function(asrResult, speakerIds) {",
+                "      if (asrResult.NLParse) {",
+                "          notepad.play = (asrResult.NLParse.result=='yes')?true:false;",
+                "          notepad.loop = false;",
+                "          console.log('notepad.loop: ',notepad.loop);",
+                "          console.log('notepad.play: ',notepad.play);",
+                "      } ",
+                "    });",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "7126f077-b280-4ff5-8ef0-ac9e823bb91e",
+        "decorators": [
+            "97275d3f-9d59-4bd8-9ad0-3a51bb72cb10"
+        ]
+    },
+    "97275d3f-9d59-4bd8-9ad0-3a51bb72cb10": {
+        "id": "97275d3f-9d59-4bd8-9ad0-3a51bb72cb10",
+        "class": "WhileCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "  notepad.loop = true;",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "    return notepad.loop;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "e3344312-d345-40e2-a7ba-94891e8ea783": {
+        "id": "e3344312-d345-40e2-a7ba-94891e8ea783",
+        "class": "SucceedOnCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "  notepad.listen=false;",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "  return !notepad.listen;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "e57c324d-da1e-482c-a96f-5c97f7789b5b": {
+        "id": "e57c324d-da1e-482c-a96f-5c97f7789b5b",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "7126f077-b280-4ff5-8ef0-ac9e823bb91e",
+        "children": [
+            "2e269493-3de9-454e-945d-e286ade12059"
+        ]
+    },
+    "2e269493-3de9-454e-945d-e286ade12059": {
+        "id": "2e269493-3de9-454e-945d-e286ade12059",
+        "class": "ExecuteScript",
+        "name": "",
+        "options": {
+            "exec": [
+                "() => {",
+                "  console.log(\"Correct!\");",
+                "  notepad.game_over=true;",
+                "    ",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "e57c324d-da1e-482c-a96f-5c97f7789b5b",
+        "decorators": [
+            "1531a41e-4a06-4fb7-922b-c3d5c33c9e59"
+        ],
+        "children": [
+            "bac28f59-31ea-4f05-8fdc-192ab73ebee6"
+        ]
+    },
+    "1531a41e-4a06-4fb7-922b-c3d5c33c9e59": {
+        "id": "1531a41e-4a06-4fb7-922b-c3d5c33c9e59",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "var request = require('request');",
+                "",
+                "// Set the headers",
+                "var headers = {",
+                "    'User-Agent':       'Super Agent/0.0.1',",
+                "    'Content-Type':     'application/x-www-form-urlencoded'",
+                "}",
+                "",
+                "// Configure the request",
+                "var options = {",
+                "    url: 'http://api.wolframalpha.com/v2/query',",
+                "    method: 'GET',",
+                "    headers: headers,",
+                "    qs: {'input': '7+5', 'appid': '5VR6QQ-GRY4KUQA3Y', 'format' : 'plaintext'}",
+                "}",
+                "",
+                "// Start the request",
+                "request(options, function (error, response, body) {",
+                "    if (!error && response.statusCode == 200) {",
+                "        // Print out the response body",
+                "        console.log(\"my body : \",body)",
+                "        ",
+                "        //return true;",
+                "        return (12==notepad.result);",
+                "    }",
+                "})",
+                "  var wolf = \"12\";",
+                "  //return true;",
+                "  return (wolf==notepad.result);",
+                " ",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "60eee6b3-295c-49f0-a560-d75689ebc3c7": {
+        "id": "60eee6b3-295c-49f0-a560-d75689ebc3c7",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "  var wolf = \"12\";",
+                "  return !(wolf==notepad.result);",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "bac28f59-31ea-4f05-8fdc-192ab73ebee6": {
+        "id": "bac28f59-31ea-4f05-8fdc-192ab73ebee6",
+        "class": "TextToSpeechJs",
+        "name": "",
+        "options": {
+            "getWords": [
+                "(callback) => {",
+                "    callback('Good job!');",
+                "}"
+            ],
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "e57c324d-da1e-482c-a96f-5c97f7789b5b"
+    }
+}
